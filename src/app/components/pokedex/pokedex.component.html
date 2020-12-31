@@ -1,5 +1,13 @@
 <div>
   <h1>Pokedex</h1>
-  <app-pokedex-search></app-pokedex-search>
-  <app-pokedex-card></app-pokedex-card>
+
+  <app-pokedex-search
+    (searchPokemon)="handleSubmit($event)">
+  </app-pokedex-search>
+
+  <app-pokedex-card
+    [loading]="loading"
+    [error]="error"
+    [pokemon]="pokemon" >
+  </app-pokedex-card>
 </div>

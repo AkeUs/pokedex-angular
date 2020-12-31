@@ -5,7 +5,6 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class PokeApiService {
-
   private baseUrl = 'https://pokeapi.co/api/v2';
 
   constructor(

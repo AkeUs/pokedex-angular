@@ -1,15 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-pokedex-search',
   templateUrl: './pokedex-search.component.html',
   styleUrls: ['./pokedex-search.component.css']
 })
-export class PokedexSearchComponent implements OnInit {
+export class PokedexSearchComponent {
+  @Output() searchPokemon = new EventEmitter<string>();
+  public pokemonId = '';
 
-  constructor() { }
-
-  ngOnInit(): void {
+  onSubmit(e: Event): void {
+    e.preventDefault();
+    this.searchPokemon.emit(this.pokemonId);
+    this.pokemonId = '';
   }
 
 }

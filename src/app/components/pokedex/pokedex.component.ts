@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PokeApiService } from '../../services/poke-api.service';
+import { Pokemon } from '../../Interfaces/pokemon';
 
 @Component({
   selector: 'app-pokedex',
@@ -9,8 +10,8 @@ import { PokeApiService } from '../../services/poke-api.service';
 export class PokedexComponent implements OnInit {
   public loading = false;
   public error = false;
-  public pokemon = null;
-  public pokemonId = Math.floor(Math.random() * 151);
+  public pokemon!: Pokemon;
+  public pokemonId = Math.floor(Math.random() * 151).toString();
 
   constructor(
     private pokeApi: PokeApiService
@@ -23,7 +24,7 @@ export class PokedexComponent implements OnInit {
   searchPokemon(): void {
     this.pokeApi
       .getPokemonById(this.pokemonId)
-      .subscribe((data: null) => {
+      .subscribe((data: Pokemon) => {
         console.log(data);
         this.pokemon = data;
         this.loading = false;
@@ -33,6 +34,18 @@ export class PokedexComponent implements OnInit {
         this.loading = false;
         this.error = true;
     });
+  }
+
+  handleSubmit(pokemonId: string): void {
+    if (pokemonId !== '') {
+      this.error = false;
+      this.loading = true;
+      // tslint:disable-next-line:radix
+      this.pokemonId = window.isNaN(parseInt(pokemonId)) ? pokemonId.toLowerCase() : pokemonId;
+      this.searchPokemon();
+      return;
+    }
+    this.error = true;
   }
 
 }
