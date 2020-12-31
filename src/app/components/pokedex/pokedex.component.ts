@@ -8,7 +8,7 @@ import { Pokemon } from '../../Interfaces/pokemon';
   styleUrls: ['./pokedex.component.css']
 })
 export class PokedexComponent implements OnInit {
-  public loading = false;
+  public loading = true;
   public error = false;
   public pokemon!: Pokemon;
   public pokemonId = Math.floor(Math.random() * 151).toString();
@@ -25,7 +25,6 @@ export class PokedexComponent implements OnInit {
     this.pokeApi
       .getPokemonById(this.pokemonId)
       .subscribe((data: Pokemon) => {
-        console.log(data);
         this.pokemon = data;
         this.loading = false;
         this.error = false;

@@ -1,11 +1,14 @@
-<form (ngSubmit)="onSubmit($event)">
+<form class="search-form"
+      (ngSubmit)="onSubmit($event)">
+
   <input
     type="text"
     name="pokemon"
     placeholder="Pokemon ID or name"
     autocomplete="off"
     [(ngModel)]="pokemonId" />
+
   <input
     type="submit"
-    value="Search"/>
+    value="search"/>
 </form>

@@ -1,14 +1,18 @@
-<h2 *ngIf="error" >Error</h2>
+<h2 *ngIf="error" class="text-help">Error</h2>
 
-<h2 *ngIf="loading && !error">Espere...</h2>
+<h2 *ngIf="loading" class="text-help">Espere...</h2>
 
-<div *ngIf="pokemon && !error && !loading">
-  <div>
+<div *ngIf="pokemon && !error && !loading" class="pokedex-card">
+  <div class="pokedex-card-header">
     <h2>{{ pokemon.name.toUpperCase() }}</h2>
+    <h3>
+      <span *ngFor="let type of pokemon.types"
+        class="pokemon-type">{{ type.type.name }}</span>
+    </h3>
   </div>
-  <div>
+  <div class="pokedex-card-info">
     <img src="{{ pokemon.sprites.front_default }}" alt="{{ pokemon.name }}">
-    <ul>
+    <ul class="pokemon-stats">
       <app-pokedex-stat
         *ngFor="let item of pokemon.stats"
         [item]="item" >

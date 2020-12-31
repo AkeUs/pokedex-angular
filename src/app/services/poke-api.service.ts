@@ -11,7 +11,7 @@ export class PokeApiService {
     private http: HttpClient
   ) { }
 
-  getPokemonById(pokemonId: number|string): any {
+  getPokemonById(pokemonId: string): any {
     return this.http.get(`${this.baseUrl}/pokemon/${pokemonId}`);
   }
 
