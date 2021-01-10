@@ -1,12 +1,27 @@
-name: push-to-docker
+name: build
 
 on:
   push:
     branches: main
 
 jobs:
+  build:
+    name: build application
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 15
+      - run: npm install
+      - run: npx ng build --prod
+
   security:
-    name: Scan with Snyk
+    needs: build
+    name: scan vulnerabilities
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -19,8 +34,9 @@ jobs:
         with:
           command: monitor
 
-  docker-hub:
-    name: Build and push to docker
+  publish:
+    needs: security
+    name: publish to dockerhub
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
